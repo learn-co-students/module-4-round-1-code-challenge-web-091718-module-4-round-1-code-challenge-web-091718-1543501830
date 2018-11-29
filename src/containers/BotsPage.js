@@ -1,11 +1,14 @@
 import React from "react";
 import BotCollection from "./BotCollection"
 import YourBotArmy from "./YourBotArmy"
+import BotSpecs from "../components/BotSpecs"
 
 class BotsPage extends React.Component {
   //start here with your code for step one
   state = {
     robots: [],
+    page: true,
+    currentBot: null
   }
 
   componentDidMount(){
@@ -31,11 +34,28 @@ class BotsPage extends React.Component {
     })
   }
 
+  pageHandler = (currentId) => {
+    const currentBot = this.state.robots.find(robot=>robot.id===currentId)
+    if (currentBot.recruited === false){
+      this.setState({
+        currentBot: currentBot,
+        page: !this.state.page
+      })
+    }
+  }
+
+  displayHandler = () => {
+    if (this.state.page===true){
+      return <BotCollection pageHandler={this.pageHandler} robots={this.state.robots} />
+    }
+      return <BotSpecs currentBot={this.state.currentBot} recruitBot={this.recruitBot} pageHandler={this.pageHandler} />
+  }
+
   render() {
     return (
       <div>
         <YourBotArmy robots={this.state.robots} />
-        <BotCollection recruitBot={this.recruitBot} robots={this.state.robots} />
+        {this.displayHandler()}
       </div>
     );
   }
