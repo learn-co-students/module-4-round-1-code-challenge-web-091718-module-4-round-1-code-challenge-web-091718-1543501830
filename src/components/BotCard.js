@@ -21,7 +21,8 @@ const BotCard = props => {
   const handleClick = (botId) => {
     // debugger
     if (props.enlistBotToArmy) {
-      props.enlistBotToArmy(botId)
+      props.selectBot(botId)
+      props.alterViewMode()
     } else if (props.deEnlistBotFromArmy) {
       props.deEnlistBotFromArmy(botId)
     }

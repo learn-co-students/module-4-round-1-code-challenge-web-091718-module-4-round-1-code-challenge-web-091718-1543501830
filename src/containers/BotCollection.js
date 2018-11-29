@@ -8,7 +8,9 @@ class BotCollection extends React.Component {
       return <BotCard
         key={bot.id}
         bot={bot}
-        enlistBotToArmy={this.props.enlistBotToArmy}/>
+        enlistBotToArmy={this.props.enlistBotToArmy}
+        alterViewMode={this.props.alterViewMode}
+        selectBot={this.props.selectBot}/>
     })
   }
 

@@ -8,7 +8,8 @@ class YourBotArmy extends React.Component {
       return <BotCard
         key={bot.id}
         bot={bot}
-        deEnlistBotFromArmy={this.props.deEnlistBotFromArmy}/>
+        deEnlistBotFromArmy={this.props.deEnlistBotFromArmy}
+        alterViewMode={this.props.alterViewMode}/>
     })
   }
 
