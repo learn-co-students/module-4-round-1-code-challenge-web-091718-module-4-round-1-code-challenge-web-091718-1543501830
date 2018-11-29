@@ -1,6 +1,7 @@
 import React from "react";
 import BotCollection from './BotCollection'
 import YourBotArmy from './YourBotArmy'
+import BotSpecs from '../components/BotSpecs'
 
 const botsURL = 'https://bot-battler-api.herokuapp.com/api/v1/bots'
 
@@ -9,13 +10,18 @@ class BotsPage extends React.Component {
 
   state = {
     botsData: [],
-    botArmy: []
+    botArmy: [],
+    clickedBot: null
   }
 
  componentDidMount() {
    fetch(botsURL)
    .then(response => response.json())
    .then(parsedData => this.setState({botsData: parsedData}))
+ }
+
+ setClickedBot = (botObj) => {
+   this.setState({clickedBot: botObj})
  }
 
  setBotArmy = (botObj) => {
@@ -32,6 +38,29 @@ class BotsPage extends React.Component {
    this.setState({botArmy: army})
  }
 
+ goBack = () => {
+   this.setState({clickedBot: null})
+ }
+
+ renderCollectionOrSpec = () => {
+   if (!this.state.clickedBot) {
+     return(
+       <BotCollection
+         botsData={this.state.botsData}
+         setClickedBot={this.setClickedBot}
+       />
+     )
+   } else {
+     return(
+       <BotSpecs
+        bot={this.state.clickedBot}
+        setBotArmy={this.setBotArmy}
+        goBack={this.goBack}
+       />
+     )
+   }
+ }
+
   render() {
     return (
       <div>
@@ -39,12 +68,10 @@ class BotsPage extends React.Component {
         <YourBotArmy
           botArmy={this.state.botArmy}
           setBotArmy={this.delistBotArmy}
+          setClickedBot={this.setClickedBot}
         />
 
-        <BotCollection
-          botsData={this.state.botsData}
-          setBotArmy={this.setBotArmy}
-        />
+        {this.renderCollectionOrSpec()}
 
       </div>
     );
