@@ -1,6 +1,7 @@
 import React from "react";
 import BotCollection from "./BotCollection"
 import YourBotArmy from "./YourBotArmy"
+import BotSpecs from "../components/BotSpecs"
 
 class BotsPage extends React.Component {
   //start here with your code for step one
@@ -10,7 +11,9 @@ class BotsPage extends React.Component {
 
     this.state={
       bots:[{id:null}],
-      selectedBots:[]
+      selectedBots:[],
+      inspectingBot:false,
+      inspectedBot:null
     }
 
     this.getBots()
@@ -39,6 +42,21 @@ class BotsPage extends React.Component {
     console.log(`clicked to remove ${id}`)
   }
 
+  inspectBot = (id) => {
+    console.log(`inspecting Bot ${id}`)
+    this.setState({inspectedBot:id,
+      inspectingBot:true
+    })
+  }
+
+  cancelInspection = () =>{
+    this.setState({
+      inspectedBot:null,
+      inspectingBot:false
+    })
+  }
+
+
   getBotsNotInArmy = () => {
     return this.state.bots.filter(bot => typeof this.state.selectedBots.find(botId => botId === bot.id) == 'undefined')
   }
@@ -47,7 +65,7 @@ class BotsPage extends React.Component {
     return (
       <div>
         <YourBotArmy getBotById = {this.getBotById} selectedBots={this.state.selectedBots} onBotClick={this.removeBotFromArmy}/>
-        <BotCollection getBotById = {this.getBotById} getBotsNotInArmy={this.getBotsNotInArmy} bots = {this.state.bots} onBotClick = {this.addBotToArmy} />
+        {this.state.inspectingBot ? <BotSpecs addBotToArmy={this.addBotToArmy} cancelInspection={this.cancelInspection} bot ={this.getBotById(this.state.inspectedBot)}/> : <BotCollection inspectBot={this.inspectBot} getBotById = {this.getBotById} getBotsNotInArmy={this.getBotsNotInArmy} bots = {this.state.bots} onBotClick = {this.addBotToArmy}/>}
       </div>
     );
   }
