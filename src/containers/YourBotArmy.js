@@ -6,7 +6,7 @@ const YourBotArmy = (props) => {
     <div className="ui segment inverted olive bot-army">
       <div className="ui five column grid">
         <div className="row bot-army-row">
-          {props.bots.map(bot => <BotCard key={bot.id} bot={bot} clickHandler={props.clickHandler} />)}
+          {props.bots.map(bot => <BotCard key={bot.id} bot={bot} handleCardClick={props.handleCardClick} />)}
         </div>
       </div>
     </div>

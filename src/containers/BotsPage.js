@@ -5,7 +5,9 @@ import YourBotArmy from "./YourBotArmy"
 const URL = 'https://bot-battler-api.herokuapp.com/api/v1/bots'
 class BotsPage extends React.Component {
   state = {
-    allBots: []
+    allBots: [],
+    selectedBotId: null,
+    displayDetails: false
   }
 
   componentDidMount() {
@@ -17,36 +19,46 @@ class BotsPage extends React.Component {
       })
   }
 
-  clickHandler = id => {
+
+  filterBots = () => {
+    return this.state.allBots.filter(bot => bot.enlisted === true)
+  }
+
+
+  handleEnlistClick = (id) => {
+    this.setState((prevState) => {
+      const updatedBots = prevState.allBots.map(bot =>{
+        if (bot.id === id) {
+          return {...bot, enlisted: true}
+        } else {
+          return bot
+        }
+      })
+      return {allBots: updatedBots, displayDetails: false}
+    })
+  }
+
+
+  handleCardClick = (id) => {
     let foundBot = this.state.allBots.find(bot => bot.id === id)
 
-    if (foundBot.enlisted === false) {
+    if (foundBot.enlisted) {
       this.setState(prevState => {
-        const botsUpdated = prevState.allBots.map(bot => {
-          if (bot.id === id) {
-            return {...bot, enlisted: true}
-          } else {
-            return bot
-          }
-        })
-        return {allBots: botsUpdated}
-      })
-    } else {
-      this.setState(prevState => {
-        const botsUpdated = prevState.allBots.map(bot => {
+        return {allBots: prevState.allBots.map(bot =>{
           if (bot.id === id) {
             return {...bot, enlisted: false}
           } else {
             return bot
           }
-        })
-        return {allBots: botsUpdated}
+        })}
       })
+    } else {
+      this.setState({selectedBotId: id, displayDetails: true})
     }
   }
 
-  filterBots = () => {
-    return this.state.allBots.filter(bot => bot.enlisted === true)
+  handleGoBackClick = () => {
+    this.setState({displayDetails: false})
   }
 
 
@@ -55,11 +67,15 @@ class BotsPage extends React.Component {
       <div>
         {<YourBotArmy
           bots={this.filterBots()}
-          clickHandler={this.clickHandler}
+          handleCardClick={this.handleCardClick}
         />}
         {<BotCollection
           bots={this.state.allBots}
-          clickHandler={this.clickHandler}
+          selectedBotId={this.state.selectedBotId}
+          handleEnlistClick={this.handleEnlistClick}
+          handleCardClick={this.handleCardClick}
+          displayDetails={this.state.displayDetails}
+          handleGoBackClick={this.handleGoBackClick}
         />}
       </div>
     );
