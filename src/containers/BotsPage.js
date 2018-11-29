@@ -36,12 +36,11 @@ class BotsPage extends React.Component {
 
   pageHandler = (currentId) => {
     const currentBot = this.state.robots.find(robot=>robot.id===currentId)
-    if (currentBot.recruited === false){
       this.setState({
         currentBot: currentBot,
         page: !this.state.page
       })
-    }
+
   }
 
   displayHandler = () => {
