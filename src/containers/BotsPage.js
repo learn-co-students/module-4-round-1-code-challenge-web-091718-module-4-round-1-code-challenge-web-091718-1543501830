@@ -37,7 +37,11 @@ class BotsPage extends React.Component {
           return{...bot}
         }
       })
-      this.setState({botCollection:newBots})
+      this.setState({
+        botCollection:newBots,
+        showBotDetails:false,
+        selectedBot:null
+      })
     }
   }
   handleShowBotDetails = (id)=>{
