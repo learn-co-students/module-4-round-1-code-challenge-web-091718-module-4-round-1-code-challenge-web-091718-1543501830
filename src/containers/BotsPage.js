@@ -53,7 +53,7 @@ class BotsPage extends React.Component {
   render() {
     return (
       <div>
-        <YourBotArmy robots={this.state.robots} />
+        <YourBotArmy pageHandler={this.pageHandler} robots={this.state.robots} />
         {this.displayHandler()}
       </div>
     );

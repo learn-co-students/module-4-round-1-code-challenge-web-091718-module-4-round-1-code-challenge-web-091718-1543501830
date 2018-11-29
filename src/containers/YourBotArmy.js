@@ -6,7 +6,7 @@ class YourBotArmy extends React.Component {
   enlistedRobots = () => {
     return this.props.robots.map(robot => {
       if (robot.recruited === true){
-        return <BotCard key={robot.id} robot={robot} />
+        return <BotCard pageHandler={this.props.pageHandler} key={robot.id} robot={robot} />
       }
     })
   }
