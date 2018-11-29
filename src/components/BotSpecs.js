@@ -71,6 +71,14 @@ const BotSpecs = props => {
             >
               Enlist
             </button>
+            {props.enlisted ? <button
+              className="ui button fluid"
+              onClick={() =>
+                props.unEnlistBot(bot.id)
+              }
+            >
+              Unenlist
+            </button> : null}
           </div>
         </div>
       </div>

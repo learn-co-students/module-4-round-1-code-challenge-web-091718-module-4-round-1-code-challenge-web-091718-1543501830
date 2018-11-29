@@ -25,7 +25,7 @@ class BotsPage extends React.Component {
     this.setState({selectedBotId: null})}
 
   collectionOrSpecs = () => {
-    return !!this.state.selectedBotId ? <BotSpecs bot={this.state.bots.find(bot => bot.id === this.state.selectedBotId)} enlistBot={this.enlistBot} unSelectBot={this.unSelectBot}/> : <BotCollection bots={this.state.bots} toggleEnlistBot={this.toggleEnlistBot} selectBot={this.selectBot}/>}
+    return !!this.state.selectedBotId ? <BotSpecs bot={this.state.bots.find(bot => bot.id === this.state.selectedBotId)} enlistBot={this.enlistBot} unEnlistBot={this.unEnlistBot} unSelectBot={this.unSelectBot} enlisted={!!this.state.enlistedBots.find(bot => bot.id === this.state.selectedBotId)}/> : <BotCollection bots={this.state.bots} toggleEnlistBot={this.toggleEnlistBot} selectBot={this.selectBot}/>}
 
   componentDidMount() {
     fetch(URL)
