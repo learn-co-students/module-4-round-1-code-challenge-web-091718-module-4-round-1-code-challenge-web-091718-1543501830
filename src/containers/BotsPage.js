@@ -7,7 +7,8 @@ const API = 'https://bot-battler-api.herokuapp.com/api/v1/bots'
 class BotsPage extends React.Component {
   //start here with your code for step one
   state = {
-    allBots: []
+    allBots: [],
+    selectedBotIdToView: null
   }
 
 
@@ -28,8 +29,17 @@ class BotsPage extends React.Component {
         return bot
       }
     })
-    this.setState({allBots: newBots}, ()=>console.log(this.state))
+    this.setState({allBots: newBots, selectedBotIdToView: null}, ()=>console.log(this.state))
   } // end handleSelectBot fn
+
+  handleViewBot = (id) => {
+    console.log('in handleViewBot',id);
+    this.setState({selectedBotIdToView: id})
+  }
+
+  handleGoBack = () => {
+    this.setState({selectedBotIdToView: null})
+  }
 
   selectedBotsToDisplay() {
     return this.state.allBots.filter(bot=> bot.selected === true)
@@ -38,9 +48,8 @@ class BotsPage extends React.Component {
   render() {
     return (
       <div>
-        <YourBotArmy bots={this.selectedBotsToDisplay()} handleSelectBot={this.handleSelectBot}/>
-        <BotCollection bots={this.state.allBots} handleSelectBot={this.handleSelectBot}/>
-
+        <YourBotArmy bots={this.selectedBotsToDisplay()} />
+        <BotCollection bots={this.state.allBots} handleSelectBot={this.handleSelectBot} viewBotId={this.state.selectedBotIdToView} handleViewBot={this.handleViewBot} handleGoBack={this.handleGoBack}/>
       </div>
     );
   }
