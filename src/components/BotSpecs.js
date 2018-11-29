@@ -66,7 +66,7 @@ const BotSpecs = props => {
             </button>
             <button
               className="ui button fluid"
-              onClick={()=>bot.addBotToArmy(props)}
+              onClick={()=>{bot.addBotToArmy(props); bot.changeEditView}}
             >
               Enlist
             </button>

@@ -24,7 +24,6 @@ class BotsPage extends React.Component {
 
 
   addBotToArmy=(props)=>{
-    console.log(props);
     let updatedBots = this.state.bots.map(botObj=>{
       if (botObj.id===props.showId.id) {
         return {...botObj, army: !props.showId.army}

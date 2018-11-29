@@ -26,6 +26,7 @@ class BotCollection extends React.Component {
   }
 
   changeEditView = ()=>{
+    console.log('hi');
     this.setState({
       showSpecs: false,
       showId: {}
@@ -35,9 +36,10 @@ class BotCollection extends React.Component {
   	return (
   	  <div className="ui four column grid">
     		<div className="row">
-    		  {this.state.showSpecs ? <BotSpecs showId={this.state.showId}
-          changeEditView ={this.changeEditView}
-          addBotToArmy={this.props.addBotToArmy}/> :
+    		  {this.state.showSpecs ? <BotSpecs
+            showId={this.state.showId}
+            changeEditView ={this.changeEditView}
+            addBotToArmy={this.props.addBotToArmy}/> :
             (this.props.bots.map(bot=>{
               if (bot.army===false) {
                 return <BotCard
@@ -50,7 +52,6 @@ class BotCollection extends React.Component {
                   class={bot.bot_class}
                   catchphrase={bot.catchphrase}
                   url={bot.avatar_url}
-                  addBotToArmy={this.props.addBotToArmy}
                   previewSpecs={this.previewSpecs}
                   army={bot.army}
                   />
