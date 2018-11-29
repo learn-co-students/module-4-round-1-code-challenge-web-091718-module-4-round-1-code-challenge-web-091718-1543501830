@@ -2,7 +2,7 @@ import React from "react";
 import BotCard from "../components/BotCard";
 
 class YourBotArmy extends React.Component {
-  renderBots = () => this.props.bots.map(bot => <BotCard key={bot.id} bot={bot} toggleEnlistBot={this.props.toggleEnlistBot} inArmy={true}/>)
+  renderBots = () => this.props.bots.map(bot => <BotCard key={bot.id} bot={bot} toggleEnlistBot={this.props.toggleEnlistBot} inArmy={true} selectBot={this.props.selectBot}/>)
 
 
   render(){

@@ -36,7 +36,7 @@ class BotsPage extends React.Component {
   render() {
     return (
       <div>
-      <YourBotArmy bots={this.state.enlistedBots} toggleEnlistBot={this.toggleEnlistBot} />
+      <YourBotArmy bots={this.state.enlistedBots} toggleEnlistBot={this.toggleEnlistBot} selectBot={this.selectBot}/>
         {this.collectionOrSpecs()}
       </div>
     );
